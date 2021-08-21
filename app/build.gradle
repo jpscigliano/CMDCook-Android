@@ -17,9 +17,16 @@ android {
     }
 
     buildTypes {
+        //In case we want to use different urls depending the build type.
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
+            buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
+        }
+        debug{
+            buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
+            buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
         }
     }
     compileOptions {
