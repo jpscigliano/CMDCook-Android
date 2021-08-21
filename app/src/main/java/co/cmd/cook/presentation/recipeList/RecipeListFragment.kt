@@ -1,4 +1,4 @@
-package co.cmd.cook.ui.presentation.recipeList
+package co.cmd.cook.presentation.recipeList
 
 import android.os.Bundle
 import android.view.LayoutInflater

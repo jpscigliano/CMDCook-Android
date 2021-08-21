@@ -1,14 +1,14 @@
-package co.cmd.cook
+package co.cmd.cook.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.channels.Channel
+import co.cmd.cook.R.layout
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(layout.main_activity)
   
     }
 }
