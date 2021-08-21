@@ -32,13 +32,49 @@ android {
 }
 
 dependencies {
-
+    //Core
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+
+    def coroutines_version = "1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    def lifecycle_version = "2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    def nav_version = "2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //DI
+    def koin_version = "3.1.2"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-compat:$koin_version"
+
+    //Log
+    def timber_version = "4.7.1"
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    //Network
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //UI
+    def constraint_version = "2.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
+
+    def material_version = "1.4.0"
+    implementation "com.google.android.material:material:$material_version"
+
+    def recyclerview_version = "1.2.1"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
+    def paging_version = "3.0.0"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    //Test
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
