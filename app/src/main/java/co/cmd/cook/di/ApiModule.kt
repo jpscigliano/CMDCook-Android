@@ -1,8 +1,11 @@
 package co.cmd.cook.di
 
 import co.cmd.cook.BuildConfig
+import co.cmd.cook.framework.api.AuthRequestInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
+import okhttp3.Credentials
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
@@ -17,6 +20,9 @@ const val CACHE_SIZE = 50L * 1024L * 1024L // 50MB
 const val CACHE_PATH_NAME = "http-cache"
 const val AUTH_QUALIFIER = "auth-qualifier"
 const val PLATFORM_QUALIFIER = "platform-qualifier"
+const val TOKENIZED_OKHTTP_CLIENT = "tokenized-okhttp-client"
+const val TOKEN_INTERCEPTOR = "token-request-interceptor"
+
 val apiModule = module {
 
     //Gson
@@ -33,6 +39,11 @@ val apiModule = module {
         val okHttpClientBuilder: OkHttpClient.Builder = get()
         okHttpClientBuilder.build()
     }
+    // OkHttpClient. That injects an Interceptor with a Token
+    single<OkHttpClient>(named(TOKENIZED_OKHTTP_CLIENT)) {
+        val okHttpClientBuilder: OkHttpClient.Builder = get()
+        okHttpClientBuilder.addInterceptor(get(named(TOKEN_INTERCEPTOR))).build()
+    }
 
     // Retrofit with OAuth url as base url.
     single<Retrofit>(named(AUTH_QUALIFIER)) {
@@ -42,13 +53,16 @@ val apiModule = module {
             .addConverterFactory(GsonConverterFactory.create(get()))
             .build()
     }
-    // Retrofit with main url.
+    // Retrofit with main url. Calls  made to platform url should add a Token
     single<Retrofit>(named(PLATFORM_QUALIFIER)) {
         Retrofit.Builder()
-            .client(get())
+            .client(get(named(TOKENIZED_OKHTTP_CLIENT)))
             .baseUrl(BuildConfig.PLATFORM_HOST)
             .addConverterFactory(GsonConverterFactory.create(get()))
             .build()
     }
+
+    //Request interceptor that adds Token to the Header
+    single<Interceptor>(named(TOKEN_INTERCEPTOR)){ AuthRequestInterceptor(get()) }
 
 }
