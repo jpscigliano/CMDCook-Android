@@ -9,10 +9,15 @@ import co.cmd.core.domain.ClientID
 import co.cmd.core.domain.ClientSecretKey
 import co.cmd.core.domain.Token
 
+/**
+ * Using SOLID principles. I = interface segregation. Should we add getToken/saveToken with fetchToken ?
+ * May be not, should be in different Datasources.
+ */
 class NetworkAuthDatasource(private val authService: AuthService) : AuthDatasource {
 
     override suspend fun fetchToken(clientID: ClientID, clientSecretKey: ClientSecretKey): Result<Token> =
         safeApiCall {
+            //TODO use Authenticator  from OkHttp
             val auth = "Basic " + Base64.encodeToString(
                 ("${clientID.value}:${clientSecretKey.value}").toByteArray(Charsets.UTF_8),
                 Base64.DEFAULT
