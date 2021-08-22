@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 
 val authRepositoryModule = module {
     // Repository
-    single { AuthRepository(get(), get()) }
+    single { AuthRepository(get(), get(),get()) }
 
     //Datasource
     single<ConfigDatasource> { LocalConfigDatasource() }
@@ -27,6 +27,6 @@ val authRepositoryModule = module {
     //User of Case
     factory { GetClientSecret(get()) }
     factory { GetClientID(get()) }
-    factory { FetchToken(get(), get(), get()) }
+    factory { FetchToken(get(), get(), get(), get()) }
 
 }

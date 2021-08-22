@@ -8,6 +8,7 @@ import co.cmd.core.domain.Token
 
 class AuthRepository(
     private val networkDatasource: AuthDatasource,
+    private val localDatasource: AuthDatasource,
     private val configDatasource: ConfigDatasource
 
 ) {
@@ -18,4 +19,7 @@ class AuthRepository(
     fun getClientID(): ClientID = configDatasource.getClientID()
 
     fun getClientSecretKet(): ClientSecretKey = configDatasource.getClientSecret()
+
+    suspend fun getToken(): Result<Token> = localDatasource.getToken()
+    suspend fun saveToken(token: Token) = localDatasource.saveToken(token)
 }
