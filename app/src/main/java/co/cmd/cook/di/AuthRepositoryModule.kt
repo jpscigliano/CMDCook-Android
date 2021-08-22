@@ -14,6 +14,8 @@ import co.cmd.core.data.repository.AuthRepository
 import co.cmd.core.interactors.FetchToken
 import co.cmd.core.interactors.GetClientID
 import co.cmd.core.interactors.GetClientSecret
+import co.cmd.core.interactors.GetToken
+import co.cmd.core.interactors.SaveToken
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -40,5 +42,7 @@ val authRepositoryModule = module {
     factory { GetClientSecret(get()) }
     factory { GetClientID(get()) }
     factory { FetchToken(get(), get(), get(), get()) }
+    factory { GetToken(get()) }
+    factory { SaveToken(get()) }
 
 }
