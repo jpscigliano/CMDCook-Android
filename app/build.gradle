@@ -26,7 +26,7 @@ android {
             buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
             buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
         }
-        debugp{
+        debug{
             buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
             buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
         }
@@ -70,6 +70,9 @@ dependencies {
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //SP
+    def datastore_version = "1.0.0"
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
 
     //UI
     def constraint_version = "2.1.0"
