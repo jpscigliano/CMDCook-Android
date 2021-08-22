@@ -1,9 +1,5 @@
 package co.cmd.cook.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import co.cmd.cook.framework.api.AuthService
 import co.cmd.cook.framework.datasource.LocalAuthDatasource
 import co.cmd.cook.framework.datasource.LocalConfigDatasource
@@ -16,7 +12,6 @@ import co.cmd.core.interactors.GetClientID
 import co.cmd.core.interactors.GetClientSecret
 import co.cmd.core.interactors.GetToken
 import co.cmd.core.interactors.SaveToken
-import org.koin.android.ext.koin.androidApplication
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -26,7 +21,7 @@ const val LOCAL = "local"
 
 val authRepositoryModule = module {
     // Repository
-    single { AuthRepository(get(), get(named(NETWORK)), get(named(LOCAL))) }
+    single { AuthRepository(get(named(NETWORK)), get(named(LOCAL)), get()) }
 
     //Datasource
     single<ConfigDatasource> { LocalConfigDatasource() }
@@ -35,8 +30,6 @@ val authRepositoryModule = module {
 
     //API
     single { get<Retrofit>(named(AUTH_QUALIFIER)).create(AuthService::class.java) }
-
-
 
     //User of Case
     factory { GetClientSecret(get()) }
