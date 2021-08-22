@@ -14,6 +14,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'CLIENT_ID', '"e5e64437b28741ceb883573eb2696f37"'
+        buildConfigField 'String', 'CLIENT_SECRET_KEY', '"0ff367c23e3742eda91f50a976d4b788"'
     }
 
     buildTypes {
@@ -24,7 +26,7 @@ android {
             buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
             buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
         }
-        debug{
+        debugp{
             buildConfigField 'String', 'PLATFORM_HOST', '"https://platform.fatsecret.com"'
             buildConfigField 'String', 'AUTH_HOST', '"https://oauth.fatsecret.com"'
         }
@@ -40,6 +42,7 @@ android {
 
 dependencies {
     //Core
+    implementation project(path: ':core')
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
 
