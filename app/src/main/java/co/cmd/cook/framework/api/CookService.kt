@@ -10,8 +10,8 @@ import retrofit2.http.Query
  */
 interface CookService {
 
-    @POST("/?method=recipes.search&format=json")
-    fun getRecipes(
+    @POST("/rest/server.api?method=recipes.search&format=json")
+   suspend fun getRecipes(
         @Query("max_results") amount: Int,
         @Query("page_number") page: Int,
     ): RecipesResponse
