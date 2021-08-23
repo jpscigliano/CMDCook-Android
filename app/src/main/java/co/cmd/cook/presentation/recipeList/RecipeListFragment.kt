@@ -36,9 +36,5 @@ class RecipeListFragment : BaseViewBindingFragment<FragmentRecipeListBinding>() 
             }
         }
 
-
-        vm.liveRecipeList.observe(viewLifecycleOwner, { pagingData ->
-           // adapter.submitData(lifecycle,pagingData)
-        })
     }
 }
