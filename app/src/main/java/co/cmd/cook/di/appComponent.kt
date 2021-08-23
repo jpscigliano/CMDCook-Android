@@ -4,7 +4,9 @@ package co.cmd.cook.di
 val appComponent = listOf(
     apiModule,
     authRepositoryModule,
-    settingsModule
+    settingsModule,
+    cookModule,
+    viewModelsModule
 )
 
 

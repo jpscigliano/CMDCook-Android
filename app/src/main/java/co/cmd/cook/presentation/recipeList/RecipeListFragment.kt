@@ -1,24 +1,40 @@
 package co.cmd.cook.presentation.recipeList
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import co.cmd.cook.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import co.cmd.cook.databinding.FragmentRecipeListBinding
+import co.cmd.cook.presentation.BaseViewBindingFragment
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RecipeListFragment : Fragment() {
+class RecipeListFragment : BaseViewBindingFragment<FragmentRecipeListBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_recipe_list, container, false)
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRecipeListBinding
+        get() = FragmentRecipeListBinding::inflate
+    private val vm: RecipeListViewModel by viewModel()
+    private lateinit var adapter:RecipeListAdapter
+
+    override fun onCreated() {
+        adapter = RecipeListAdapter()
+        setupUI()
+        setupObservers()
     }
 
-    companion object {
+    private fun setupUI() {
+        binding.recyclerRecipeList.adapter = adapter
+        binding.recyclerRecipeList.layoutManager = GridLayoutManager(requireContext(), 1)
+        binding.recyclerRecipeList.setHasFixedSize(true)
+    }
 
-        @JvmStatic
-        fun newInstance() = RecipeListFragment()
+    private fun setupObservers() {
+        lifecycleScope.launchWhenStarted {
+            vm.recipeList.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
+
     }
 }
