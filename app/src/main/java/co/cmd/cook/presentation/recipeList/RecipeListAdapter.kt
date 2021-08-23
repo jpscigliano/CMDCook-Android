@@ -3,6 +3,7 @@ package co.cmd.cook.presentation.recipeList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import co.cmd.cook.R
 import co.cmd.cook.presentation.recipeList.RecipeListAdapter.RecipeViewHolder
 import co.cmd.core.domain.Recipe
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 
 class RecipeListAdapter : PagingDataAdapter<Recipe, RecipeViewHolder>(COMPARATOR) {
 
@@ -33,9 +37,19 @@ class RecipeListAdapter : PagingDataAdapter<Recipe, RecipeViewHolder>(COMPARATOR
 
         val name = view.findViewById<TextView>(R.id.text_name)
         val description = view.findViewById<TextView>(R.id.text_description)
+        val image = view.findViewById<ImageView>(R.id.image_recipe)
+
         fun bindTo(recipe: Recipe) = with(view) {
             name.text = recipe.name.value
             description.text = recipe.description.value
+            Glide.with(this).applyDefaultRequestOptions(
+                RequestOptions()
+                    .placeholder(R.drawable.menu_placeholder)
+                    .error(R.drawable.menu_placeholder)
+            )
+                .load(recipe.imageUrl.value)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(image)
             view.setOnClickListener {
                 recipeClickListener?.invoke(recipe)
             }
