@@ -5,7 +5,8 @@ val appComponent = listOf(
     apiModule,
     authRepositoryModule,
     settingsModule,
-    cookModule
+    cookModule,
+    viewModelsModule
 )
 
 
