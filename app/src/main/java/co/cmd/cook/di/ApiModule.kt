@@ -2,9 +2,9 @@ package co.cmd.cook.di
 
 import co.cmd.cook.BuildConfig
 import co.cmd.cook.framework.api.AuthRequestInterceptor
+import co.cmd.cook.framework.api.AuthRetryResponseInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
-import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -22,6 +22,7 @@ const val AUTH_QUALIFIER = "auth-qualifier"
 const val PLATFORM_QUALIFIER = "platform-qualifier"
 const val TOKENIZED_OKHTTP_CLIENT = "tokenized-okhttp-client"
 const val TOKEN_INTERCEPTOR = "token-request-interceptor"
+const val TOKEN_OUTDATED_INTERCEPTOR = "token-response-interceptor"
 
 val apiModule = module {
 
@@ -42,7 +43,11 @@ val apiModule = module {
     // OkHttpClient. That injects an Interceptor with a Token
     single<OkHttpClient>(named(TOKENIZED_OKHTTP_CLIENT)) {
         val okHttpClientBuilder: OkHttpClient.Builder = get()
-        okHttpClientBuilder.addInterceptor(get(named(TOKEN_INTERCEPTOR))).build()
+        okHttpClientBuilder.addInterceptor(
+            get(named(TOKEN_INTERCEPTOR))
+        ).addInterceptor(
+            get(named(TOKEN_OUTDATED_INTERCEPTOR))
+        ).build()
     }
 
     // Retrofit with OAuth url as base url.
@@ -63,6 +68,9 @@ val apiModule = module {
     }
 
     //Request interceptor that adds Token to the Header
-    single<Interceptor>(named(TOKEN_INTERCEPTOR)){ AuthRequestInterceptor(get()) }
+    single<Interceptor>(named(TOKEN_INTERCEPTOR)) { AuthRequestInterceptor(get()) }
+
+    //Response interceptor that checks if Token is missing or outdated
+    factory<Interceptor>(named(TOKEN_OUTDATED_INTERCEPTOR)) { AuthRetryResponseInterceptor(get(), get()) }
 
 }

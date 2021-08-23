@@ -1,6 +1,7 @@
 package co.cmd.cook.framework.datasource
 
 import android.util.Base64
+import co.cmd.cook.di.authRepositoryModule
 import co.cmd.cook.framework.Error
 import co.cmd.cook.framework.api.AuthService
 import co.cmd.cook.framework.safeApiCall
@@ -8,6 +9,7 @@ import co.cmd.core.data.datasource.AuthDatasource
 import co.cmd.core.domain.ClientID
 import co.cmd.core.domain.ClientSecretKey
 import co.cmd.core.domain.Token
+import org.koin.core.context.GlobalContext
 
 /**
  * Using SOLID principles. I = interface segregation. Should we add getToken/saveToken with fetchToken ?
@@ -17,10 +19,10 @@ class NetworkAuthDatasource(private val authService: AuthService) : AuthDatasour
 
     override suspend fun fetchToken(clientID: ClientID, clientSecretKey: ClientSecretKey): Result<Token> =
         safeApiCall {
-            //TODO use Authenticator  from OkHttp
+            //TODO use Authenticator  from OkHttp or inject encoder. We leave it like this for now.
             val auth = "Basic " + Base64.encodeToString(
                 ("${clientID.value}:${clientSecretKey.value}").toByteArray(Charsets.UTF_8),
-                Base64.DEFAULT
+                Base64.NO_WRAP
             ).trim()
             Token(authService.fetchToken(auth).token)
         }
@@ -30,5 +32,6 @@ class NetworkAuthDatasource(private val authService: AuthService) : AuthDatasour
 
     override suspend fun saveToken(token: Token) {
         //TODO should the Token be saved for this user on the servers? This is the place
+
     }
 }
