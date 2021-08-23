@@ -1,6 +1,5 @@
 package co.cmd.cook.framework.api
 
-import co.cmd.cook.framework.dto.RecipeResponse
 import co.cmd.cook.framework.dto.RecipesResponse
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -11,8 +10,8 @@ import retrofit2.http.Query
 interface CookService {
 
     @POST("/rest/server.api?method=recipes.search&format=json")
-   suspend fun getRecipes(
-        @Query("max_results") amount: Int,
-        @Query("page_number") page: Int,
+    suspend fun getRecipes(
+        @Query("page_number") actualPage: Int,
+        @Query("max_results") perPage: Int,
     ): RecipesResponse
 }

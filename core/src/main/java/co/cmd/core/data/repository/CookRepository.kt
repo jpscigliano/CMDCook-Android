@@ -5,5 +5,5 @@ import co.cmd.core.domain.Recipe
 
 class CookRepository(private val networkCookDatasource: CookDatasource) {
 
-   suspend fun getRecipes(amount: Int, page: Int): Result<List<Recipe>> = networkCookDatasource.getRecipes(amount, page)
+   suspend fun getRecipes(actualPage: Int, itemsPerPage: Int): Result<List<Recipe>> = networkCookDatasource.getRecipes(actualPage,itemsPerPage)
 }

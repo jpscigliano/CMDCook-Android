@@ -5,6 +5,6 @@ import co.cmd.core.domain.Recipe
 
 class GetRecipes(private val cookRepository: CookRepository) {
 
-    suspend operator fun invoke(amount: Int, perPage: Int): Result<List<Recipe>> =
-        cookRepository.getRecipes(amount, perPage)
+    suspend operator fun invoke(actualPage: Int, itemsPerPage: Int): Result<List<Recipe>> =
+        cookRepository.getRecipes(actualPage, itemsPerPage)
 }

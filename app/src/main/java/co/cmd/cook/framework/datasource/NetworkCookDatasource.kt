@@ -12,9 +12,9 @@ import co.cmd.core.domain.Recipe
  */
 class NetworkCookDatasource(private val cookService: CookService) : CookDatasource {
 
-    override suspend fun getRecipes(amountPerPage: Int, page: Int): Result<List<Recipe>> = safeApiCall {
+    override suspend fun getRecipes(actualPage: Int, itemsPerPage: Int): Result<List<Recipe>> = safeApiCall {
         val mapper = RecipeResponseToRecipeMapper()
-        cookService.getRecipes(amountPerPage, page).pagingResponse?.recipes?.map {
+        cookService.getRecipes(actualPage,itemsPerPage).pagingResponse?.recipes?.map {
             mapper.map(it)
         } ?: listOf()
     }
