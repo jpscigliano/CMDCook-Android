@@ -7,5 +7,5 @@ import retrofit2.http.POST
 interface AuthService {
 
     @POST("/connect/token")
-    fun fetchToken(@Header("Authorization") auth: String): TokenResponse
+    suspend fun fetchToken(@Header("Authorization") auth: String): TokenResponse
 }
