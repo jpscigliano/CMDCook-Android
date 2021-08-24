@@ -6,7 +6,7 @@ Mix ingredients as a real commander.
 
 CMDCook is a demo android app using CleanArchitecure with MVVM design. Jetpack libs like Navigation, SageArg, Paging3 wwere used alongside with Couroutines,Flow,Channels, Retrofit, OkHttp and more.
 
-##Overview
+## Overview
 
 CMDCook has 2 Screens, the ListRecipeFragment where the PAging3 library is used to show list of recipes and RecipeDetailFragment showing more informatino about the recipe.
 
@@ -20,21 +20,21 @@ Following Clean Architecture principles the App is split in several layers and o
 
 ![alt text](https://github.com/jpscigliano/CMDCook-Android/blob/dev/img/arch.png?raw=true)
 
-App Module;
+### App Module;
     - Presentation (related to “view logic”, like  ViewModels, Activities, Fragments  group by features)
     - Framework (Implementation of Datasource, Api, DTO)
 
-Core Module;
+### Core Module;
     - Domain ( specific business objects)
     - Data (Data source abstractions and Repository)
     - Interactors (Use cases)
 
-Use of Repositoy Pattern to handle the fetch of data data and Mappers for mapping the DTO objects to Domain objects.
+Use of Repository Pattern to handle the fetch of data data and Mappers for mapping the DTO objects to Domain objects.
 Repository decides if the data should come from the Network or Locale.
 
 ## Database - Room
 
-Not yet. At the momento DataStore was uses for storing the client Token.
+Not yet. At the moment DataStore was uses for storing the client Token.
 
 
 ## Testing
