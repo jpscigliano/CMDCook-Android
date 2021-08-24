@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_recipe_list" >
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment" />
+            app:destination="@id/recipeDetailFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_out_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/recipeDetailFragment"
