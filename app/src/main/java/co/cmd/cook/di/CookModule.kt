@@ -4,6 +4,7 @@ import co.cmd.cook.framework.api.CookService
 import co.cmd.cook.framework.datasource.NetworkCookDatasource
 import co.cmd.core.data.datasource.CookDatasource
 import co.cmd.core.data.repository.CookRepository
+import co.cmd.core.interactors.GetRecipeDetail
 import co.cmd.core.interactors.GetRecipes
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -21,5 +22,6 @@ val cookModule = module {
 
     //User of Case
     factory { GetRecipes(get()) }
+    factory { GetRecipeDetail(get()) }
 
 }
