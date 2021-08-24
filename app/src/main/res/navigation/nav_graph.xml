@@ -9,5 +9,23 @@
         android:id="@+id/recipeListFragment"
         android:name="co.cmd.cook.presentation.recipeList.RecipeListFragment"
         android:label="fragment_recipe_list"
-        tools:layout="@layout/fragment_recipe_list" />
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_out_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="co.cmd.cook.presentation.recipeDetail.RecipeDetailFragment"
+        android:label="fragment_recipe_detail"
+        tools:layout="@layout/fragment_recipe_detail" >
+        <argument
+            android:name="recipeID"
+            app:argType="string" />
+    </fragment>
 </navigation>

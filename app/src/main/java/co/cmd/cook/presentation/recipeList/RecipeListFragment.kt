@@ -6,7 +6,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import co.cmd.cook.databinding.FragmentRecipeListBinding
 import co.cmd.cook.presentation.BaseViewBindingFragment
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -15,10 +14,13 @@ class RecipeListFragment : BaseViewBindingFragment<FragmentRecipeListBinding>() 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRecipeListBinding
         get() = FragmentRecipeListBinding::inflate
     private val vm: RecipeListViewModel by viewModel()
-    private lateinit var adapter:RecipeListAdapter
+    private lateinit var adapter: RecipeListAdapter
 
     override fun onCreated() {
         adapter = RecipeListAdapter()
+        adapter.recipeClickListener = { recipe ->
+            vm.onRecipeItemClicked(recipe)
+        }
         setupUI()
         setupObservers()
     }
