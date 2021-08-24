@@ -1,22 +1,22 @@
-# CMDCook
+# CMDCook - Under construction
 
 Mix ingredients as a real commander.
 
 ## Description
 
-CMDCook is a demo android app using CleanArchitecure with MVVM design. Jetpack libs like Navigation, SageArg, Paging3 wwere used alongside with Couroutines,Flow,Channels, Retrofit, OkHttp and more.
+CMDCook is a demo android app using CleanArchitecure with MVVM design. Jetpack libraries like Navigation, SageArg, Paging3 were used alongside with Coroutines, Flow, Channels, Retrofit, OkHttp and more.
 
 ## Overview
 
-CMDCook has 2 Screens, the ListRecipeFragment where the PAging3 library is used to show list of recipes and RecipeDetailFragment showing more informatino about the recipe.
+CMDCook has 2 Screens, the ListRecipeFragment where the PAging3 library is used to show list of recipes and RecipeDetailFragment showing more information about the recipe.
 
-FatSecret.com API was used for fetching the Data. https://platform.fatsecret.com/api/. FIt supports OAuth 2.0  so Interceptors were implemented for setting and fetching Barear Tokens.
+https://platform.fatsecret.com/api/ was used for fetching the Data. FatSecret API supports OAuth 2.0, interceptors are implemented for the setup of the API calls using the Barear Token provided by the API.
 
 Navigation was done Using SafeArg and NavigationComponent
 
 ## Architecture 
 
-Following Clean Architecture principles the App is split in several layers and organized in 2 modules. This provides a better abstractions of the Framework impl and the bussines logic
+Following Clean Architecture principles the App is split in several layers and organized in 2 modules. This provides a better abstractions of the framework impl and the business logic
 
 ![alt text](https://github.com/jpscigliano/CMDCook-Android/blob/dev/img/arch.png?raw=true)
 
