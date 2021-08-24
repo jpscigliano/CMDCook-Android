@@ -23,28 +23,30 @@ class AuthRetryResponseInterceptor(
         //Proceed with request
         val response = chain.proceed(chain.request())
         val bodyString = response.body()?.string() ?: ""
-        val newResponse =
-            response.newBuilder().body(ResponseBody.create(response.body()?.contentType(), bodyString)).build();
+        val newResponse = response.newBuilder().body(ResponseBody.create(response.body()?.contentType(), bodyString))
 
-        return if (newResponse.isSuccessful) {
+        return if (response.isSuccessful) {
             try {
                 when (gson.fromJson(bodyString, ErrorApiResponse::class.java).error.code) {
                     2, 9, 13 -> {
                         //The token is OUTdated so we need to fetch the Token again.
                         runBlocking {
-                            val token=fetchToken().getOrNull()?.value ?: ""
+                            val token = fetchToken().getOrNull()?.value ?: ""
                             chain.proceed(
                                 chain.request().newBuilder().addHeader("Authorization", "Bearer $token").build()
                             )
                         }
                     }
-                    else -> newResponse
+                    else -> {
+                        //Transform the 200 Error into 400
+                        newResponse.code(400).build()
+                    }
                 }
             } catch (e: Exception) {
-                newResponse
+                newResponse.build()
             }
         } else {
-            newResponse
+            newResponse.build()
         }
     }
 }
