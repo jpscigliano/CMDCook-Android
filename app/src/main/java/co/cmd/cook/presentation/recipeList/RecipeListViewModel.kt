@@ -27,7 +27,17 @@ class RecipeListViewModel(private val getRecipes: GetRecipes) : ViewModel() {
                 PagingProductsDataSource(getRecipes)
             }).flow
 
+    fun refresh() {
+       recipeList
+    }
+
     fun onRecipeItemClicked(recipe: Recipe) {
-        //  _navigationActions.trySend(NavigationCommand.To())
+        _navigationActions.trySend(
+            NavigationCommand.To(
+                RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailFragment(
+                    recipe.id.value
+                )
+            )
+        )
     }
 }
