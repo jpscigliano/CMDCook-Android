@@ -1,9 +1,7 @@
 package co.cmd.cook.framework
 
-<<<<<<< Updated upstream
-=======
+
 import co.cmd.cook.framework.dto.ErrorApiResponse
->>>>>>> Stashed changes
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +18,8 @@ suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher = Dispatchers.IO, ap
                     val gson = GsonBuilder().create()
                     try {
                         //Todo should not use string(). Can  throw OutOfMemoryError. Use buffers instead
-                       // val apiResponse = gson.fromJson(throwable.response()?.errorBody()?.string(), ErrorApiResponse::class.java)
-                       // Result.failure(Error.Api(apiResponse?.error?.message ?: ""))
-                        Result.failure(Error.Unknown())
+                        val apiResponse = gson.fromJson(throwable.response()?.errorBody()?.string(), ErrorApiResponse::class.java)
+                        Result.failure(Error.Api(apiResponse?.error?.message ?: ""))
                     } catch (e: Exception) {
                         Result.failure(e)
                     }
